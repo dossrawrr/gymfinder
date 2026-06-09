@@ -6,7 +6,7 @@
   <title>Gym Finder Baturaja</title>
 
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght=300;400;500;700&display=swap');
 
     *{
       margin:0;
@@ -16,1494 +16,760 @@
     }
 
     body{
-
       min-height:100vh;
       color:white;
-
       background:
       linear-gradient(
       rgba(0,0,0,0.82),
       rgba(0,0,0,0.9)),
-
       url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1600&auto=format&fit=crop');
-
       background-size:cover;
       background-position:center;
       background-attachment:fixed;
     }
 
     /* NAVBAR */
-
     nav{
-
       display:flex;
       justify-content:space-between;
       align-items:center;
-
       padding:20px 50px;
-
-      background:
-      rgba(255,255,255,0.05);
-
+      background:rgba(255,255,255,0.05);
       backdrop-filter:blur(10px);
-
-      border-bottom:
-      1px solid rgba(255,255,255,0.1);
+      border-bottom:1px solid rgba(255,255,255,0.1);
+      position:sticky;
+      top:0;
+      z-index:999;
+      box-shadow:0 5px 30px rgba(0,0,0,0.35);
     }
 
     .logo{
-
       font-size:30px;
       font-weight:bold;
-
       color:#ffb700;
     }
 
     .menu a{
-
       color:white;
       text-decoration:none;
-
       margin-left:25px;
-
       font-weight:bold;
-
       transition:0.3s;
+      position:relative;
     }
 
     .menu a:hover{
-
       color:#ffb700;
     }
 
+    .menu a::after{
+      content:'';
+      position:absolute;
+      width:0%;
+      height:2px;
+      left:0;
+      bottom:-6px;
+      background:#ffb700;
+      transition:0.3s;
+    }
+
+    .menu a:hover::after{
+      width:100%;
+    }
+
+    /* MAIN CONTENT WRAPPER */
+    .page-content {
+      position: relative;
+      width: 100%;
+    }
+
+    /* POSITIONED TEPAT DI BAWAH MENU NAVBAR */
+    #backBtn {
+      position: absolute;
+      top: 15px;
+      right: 50px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffb700;
+      padding: 12px 22px;
+      border-radius: 15px;
+      font-size: 14px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      z-index: 105;
+    }
+
+    #backBtn:hover {
+      background: rgba(255, 183, 0, 0.15);
+      border-color: #ffb700;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255,183,0,0.2);
+    }
+
     /* HEADER */
-
     header{
-
       text-align:center;
-
-      padding:100px 20px 40px;
+      padding:100px 20px 20px;
     }
 
     header h1{
-
       font-size:75px;
-
       margin-bottom:20px;
-
-      background:
-      linear-gradient(135deg,#ffffff,#ffb700);
-
+      background:linear-gradient(135deg,#ffffff,#ffb700);
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
+      animation:glow 3s infinite alternate;
     }
 
     header p{
-
       color:#d1d5db;
-
       font-size:20px;
     }
 
-    /* SEARCH */
-
+    /* AREA SEARCH */
     .search-box{
-
       display:flex;
       justify-content:center;
       align-items:center;
-
-      gap:15px;
-
-      flex-wrap:wrap;
-
       padding:20px;
     }
 
-    .search-box input{
+    .search-fields {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
 
+    .search-box input{
       width:420px;
       max-width:90%;
-
       padding:18px;
-
-      border:none;
+      border:1px solid rgba(255,255,255,0.08);
       outline:none;
-
       border-radius:18px;
-
-      background:
-      rgba(255,255,255,0.08);
-
+      background:rgba(255,255,255,0.08);
       backdrop-filter:blur(10px);
-
       color:white;
-
       font-size:16px;
-
-      border:
-      1px solid rgba(255,255,255,0.08);
+      transition:0.3s;
     }
 
     .search-box input::placeholder{
-
       color:#cbd5e1;
     }
 
+    .search-box input:focus{
+      border:1px solid #ffb700;
+      box-shadow:0 0 25px rgba(255,183,0,0.25);
+      transform:scale(1.02);
+    }
+
     .search-box button{
-
       padding:18px 28px;
-
       border:none;
-
       border-radius:18px;
-
-      background:
-      linear-gradient(135deg,#ff7b00,#ffb700);
-
+      background:linear-gradient(135deg,#ff7b00,#ffb700);
       color:white;
-
       font-size:16px;
       font-weight:bold;
-
       cursor:pointer;
-
       transition:0.3s;
-
-      box-shadow:
-      0 10px 30px rgba(255,149,0,0.3);
+      box-shadow:0 10px 30px rgba(255,149,0,0.3);
     }
 
     .search-box button:hover{
+      transform:translateY(-5px) scale(1.03);
+    }
 
-      transform:
-      translateY(-5px)
-      scale(1.03);
+    /* WRAPPER & ROW */
+    .gym-wrapper{
+      overflow-x:auto;
+      overflow-y:hidden;
+      scrollbar-width:none;
+      cursor:grab;
+      padding:20px 0;
+      scroll-behavior:smooth;
+      user-select: none;
+    }
+
+    .gym-wrapper::-webkit-scrollbar{
+      display:none;
+    }
+
+    .gym-wrapper:has(.detail-btn:hover) .gym-row,
+    .gym-wrapper:active .gym-row {
+      animation-play-state: paused !important;
+    }
+
+    .gym-wrapper:active {
+      cursor: grabbing;
+    }
+
+    .gym-row{
+      display:flex;
+      width:max-content;
+      gap:35px;
+      margin-bottom:15px;
+    }
+
+    .gym-container{
+      display:flex;
+      gap:35px;
+      width:max-content;
+      padding: 0 50px;
+    }
+
+    /* LEFT & RIGHT ANIMATION */
+    .left{
+      animation:moveLeft 25s linear infinite;
+    }
+
+    .right{
+      animation:moveRight 25s linear infinite;
+    }
+
+    @keyframes moveLeft{
+      from{ transform:translateX(0); }
+      to{ transform:translateX(-30%); }
+    }
+
+    @keyframes moveRight{
+      from{ transform:translateX(-30%); }
+      to{ transform:translateX(0); }
     }
 
     /* CARD */
-
-    .gym-container{
-
-      display:grid;
-
-      grid-template-columns:
-      repeat(auto-fit,minmax(320px,1fr));
-
-      gap:35px;
-
-      padding:50px;
-    }
-
     .gym-card{
-
-      background:
-      rgba(255,255,255,0.06);
-
+      min-width:320px;
+      background:rgba(255,255,255,0.06);
       backdrop-filter:blur(12px);
-
-      border:
-      1px solid rgba(255,255,255,0.08);
-
+      border:1px solid rgba(255,255,255,0.08);
       border-radius:30px;
-
       overflow:hidden;
-
       transition:0.4s;
-
-      box-shadow:
-      0 10px 35px rgba(0,0,0,0.35);
-
+      box-shadow:0 10px 35px rgba(0,0,0,0.35);
       animation:fadeUp 1s ease;
     }
 
     .gym-card:hover{
-
-  transform:
-  translateY(-15px)
-  scale(1.02);
-
-  box-shadow:
-  0 25px 60px rgba(255,149,0,0.25);
-
-  border:
-  1px solid rgba(255,183,0,0.35);
-}
-  
+      transform:translateY(-15px) scale(1.02);
+      box-shadow:0 25px 60px rgba(255,149,0,0.25);
+      border:1px solid rgba(255,183,0,0.35);
+    }
 
     .gym-card img{
-
       width:100%;
       height:230px;
-
       object-fit:cover;
-      filter:
-brightness(0.88);
+      object-position:center;
+      filter:brightness(0.88);
+      transition:0.5s;
+      pointer-events: none;
+    }
+
+    .gym-card:hover img{
+      transform:scale(1.08);
     }
 
     .gym-info{
-
       padding:28px;
     }
 
     .gym-info h2{
-
       color:#ffb700;
-
-      font-size:32px;
-
+      font-size:28px;
       margin-bottom:18px;
     }
 
     .gym-info p{
-
       color:#d1d5db;
-
       line-height:1.8;
-
       margin-bottom:12px;
     }
 
     .rating{
-
       color:gold;
-
       font-size:20px;
     }
 
-    /* MAP BUTTON */
+    /* BUTTONS */
+    .detail-btn{
+      width:100%;
+      padding:16px;
+      border:none;
+      border-radius:18px;
+      background:linear-gradient(135deg,#ff7b00,#ffb700);
+      color:white;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+      margin-top:15px;
+      box-shadow:0 10px 30px rgba(255,149,0,0.3);
+    }
+
+    .detail-btn:hover{
+      transform:translateY(-5px);
+      box-shadow:0 15px 35px rgba(255,149,0,0.4);
+    }
 
     .map-btn{
-
       display:block;
-
       margin-top:20px;
-
       text-decoration:none;
     }
 
     .map-btn button{
-
       width:100%;
-
       padding:16px;
-
       border:none;
-
       border-radius:18px;
-
-      background:
-      linear-gradient(135deg,#ff7b00,#ffb700);
-
+      background:linear-gradient(135deg,#ff7b00,#ffb700);
       color:white;
-
       font-size:16px;
       font-weight:bold;
-
       cursor:pointer;
-
       transition:0.3s;
-
-      box-shadow:
-      0 10px 30px rgba(255,149,0,0.3);
+      box-shadow:0 10px 30px rgba(255,149,0,0.3);
     }
 
     .map-btn button:hover{
+      transform:translateY(-5px);
+      box-shadow:0 15px 35px rgba(255,149,0,0.4);
+    }
 
-      transform:
-      translateY(-5px);
-
-      box-shadow:
-      0 15px 35px rgba(255,149,0,0.4);
+    .map-btn button:active{
+      transform:scale(0.96);
     }
 
     /* FOOTER */
-
     footer{
-
       text-align:center;
-
       padding:40px 20px;
-
       color:#cbd5e1;
     }
 
-    /* ANIMATION */
+    /* ANIMATIONS */
+    @keyframes glow{
+      from{
+        text-shadow:0 0 10px rgba(255,183,0,0.2), 0 0 20px rgba(255,183,0,0.2);
+      }
+      to{
+        text-shadow:0 0 20px rgba(255,183,0,0.5), 0 0 40px rgba(255,183,0,0.4);
+      }
+    }
 
     @keyframes fadeUp{
-
       from{
         opacity:0;
-        transform:translateY(50px);
+        transform:translateY(60px);
       }
-
       to{
         opacity:1;
         transform:translateY(0);
       }
-
     }
 
-    /* MOBILE */
+    /* ELEGAN LOADER */
+    .loader{
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100vh;
+      background:#050505;
+      display:flex; justify-content:center; align-items:center;
+      z-index:99999;
+      animation: loaderOut 0.8s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+      animation-delay: 2s;
+    }
 
+    .loader-text{
+      color:#ffb700;
+      font-size:75px;
+      font-weight:500;
+      text-transform: uppercase;
+      animation: sleekTracking 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes loaderOut{
+      to{ opacity:0; visibility:hidden; }
+    }
+
+    @keyframes sleekTracking {
+      0% {
+        opacity: 0;
+        letter-spacing: 0px;
+      }
+      100% {
+        opacity: 1;
+        letter-spacing: 12px;
+      }
+    }
+
+    /* POPUP */
+    .popup{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100vh;
+      background:rgba(0,0,0,0.75);
+      backdrop-filter:blur(8px);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      opacity:0;
+      visibility:hidden;
+      transition:0.4s;
+      z-index:9999;
+      pointer-events:none;
+    }
+
+    .popup.show{
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+    }
+
+    .popup-content{
+      width:90%;
+      max-width:420px;
+      padding:35px;
+      border-radius:30px;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.1);
+      color:white;
+      position:relative;
+      animation:fadeUp 0.4s ease;
+    }
+
+    .popup-content h2{
+      color:#ffb700;
+      margin-bottom:20px;
+      font-size:30px;
+    }
+
+    .popup-content p{
+      margin-bottom:15px;
+      color:#d1d5db;
+      line-height:1.7;
+    }
+
+    .close-btn{
+      position:absolute;
+      top:15px;
+      right:20px;
+      font-size:24px;
+      cursor:pointer;
+      color:#ffb700;
+    }
+
+    /* RESPONSIVE MOBILE */
     @media(max-width:768px){
-
       nav{
-
         flex-direction:column;
-
         gap:15px;
       }
-
       .menu{
-
         display:flex;
         gap:15px;
       }
-
       .menu a{
-
         margin-left:0;
       }
-
       header h1{
-
         font-size:48px;
       }
-
       header p{
-
         font-size:16px;
+      }
+      
+      #backBtn {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 10px;
+        font-size: 13px;
+        padding: 10px 18px;
+      }
+      #backBtn:hover {
+        transform: translateX(-50%) translateY(-3px);
       }
 
       .gym-container{
-
-        padding:25px;
+        padding: 0 25px;
       }
-
+      .loader-text{
+        font-size:42px;
+      }
     }
-
-/* ========================= */
-/* MODERN ANIMATION */
-/* ========================= */
-
-html{
-  scroll-behavior:smooth;
-}
-
-/* NAVBAR FLOAT */
-
-nav{
-
-  position:sticky;
-
-  top:0;
-
-  z-index:999;
-
-  box-shadow:
-  0 5px 30px rgba(0,0,0,0.35);
-}
-
-/* HEADER GLOW */
-
-header h1{
-
-  animation:
-  glow 3s infinite alternate;
-}
-
-/* SEARCH EFFECT */
-
-.search-box input{
-
-  transition:0.3s;
-}
-
-.search-box input:focus{
-
-  border:
-  1px solid #ffb700;
-
-  box-shadow:
-  0 0 25px rgba(255,183,0,0.25);
-
-  transform:scale(1.02);
-}
-
-/* CARD MODERN */
-
-.gym-card{
-
-  animation:
-  fadeUp 1s ease;
-}
-
-/* CARD HOVER */
-
-.gym-card:hover{
-
-  transform:
-  translateY(-15px)
-  scale(1.02);
-
-  box-shadow:
-  0 25px 60px rgba(255,149,0,0.25);
-}
-
-/* IMAGE EFFECT */
-
-.gym-card img{
-
-  height:320px;
-
-  object-fit:cover;
-
-  object-position:center;
-
-  transition:0.5s;
-}
-
-.gym-card:hover img{
-
-  transform:scale(1.08);
-}
-
-/* BUTTON EFFECT */
-
-.map-btn button:active{
-
-  transform:scale(0.96);
-}
-
-/* MENU UNDERLINE */
-
-.menu a{
-
-  position:relative;
-}
-
-.menu a::after{
-
-  content:'';
-
-  position:absolute;
-
-  width:0%;
-
-  height:2px;
-
-  left:0;
-  bottom:-6px;
-
-  background:#ffb700;
-
-  transition:0.3s;
-}
-
-.menu a:hover::after{
-
-  width:100%;
-}
-
-/* ANIMATION */
-
-@keyframes glow{
-
-  from{
-
-    text-shadow:
-    0 0 10px rgba(255,183,0,0.2),
-    0 0 20px rgba(255,183,0,0.2);
-  }
-
-  to{
-
-    text-shadow:
-    0 0 20px rgba(255,183,0,0.5),
-    0 0 40px rgba(255,183,0,0.4);
-  }
-
-}
-
-@keyframes fadeUp{
-
-  from{
-
-    opacity:0;
-
-    transform:
-    translateY(60px);
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:
-    translateY(0);
-  }
-
-}
-
-/* ========================= */
-/* CINEMATIC LOADER */
-/* ========================= */
-
-.loader{
-
-  position:fixed;
-
-  top:0;
-  left:0;
-
-  width:100%;
-  height:100vh;
-
-  background:#050505;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  z-index:99999;
-
-  animation:
-  loaderOut 1.8s forwards;
-
-  animation-delay:1.5s;
-}
-
-.loader-text{
-
-  color:#ffb700;
-
-  font-size:50px;
-
-  font-weight:700;
-
-  letter-spacing:8px;
-
-  animation:
-  pulse 4s infinite;
-}
-
-/* LOADER OUT */
-
-@keyframes loaderOut{
-
-  to{
-
-    opacity:0;
-
-    visibility:hidden;
-  }
-
-}
-
-/* TEXT PULSE */
-
-@keyframes pulse{
-
-  0%{
-
-    opacity:0.5;
-
-    transform:scale(0.95);
-  }
-
-  50%{
-
-    opacity:1;
-
-    transform:scale(1);
-  }
-
-  100%{
-
-    opacity:0.5;
-
-    transform:scale(0.95);
-  }
-
-}
-/* ========================= */
-/* TWO ROW MOVING CARD */
-/* ========================= */
-
-.gym-wrapper{
-
-  overflow-x:auto;
-
-  overflow-y:hidden;
-
-  scrollbar-width:none;
-
-  cursor:grab;
-
-  padding:40px 0;
-
-  scroll-behavior:smooth;
-}
-
-.gym-row{
-
-  display:flex;
-
-  width:max-content;
-
-  gap:35px;
-
-  margin-bottom:35px;
-
-}
-
-/* CONTAINER */
-
-.gym-container{
-
-  display:flex;
-
-  gap:35px;
-
-  width:max-content;
-}
-
-/* CARD */
-
-.gym-card{
-
-  min-width:150px;
-}
-
-/* LEFT */
-
-.left{
-
-  animation:
-  moveLeft 20s linear infinite;
-}
-
-/* RIGHT */
-
-.right{
-
-  animation:
-  moveRight 20s linear infinite;
-}
-
-/* LEFT ANIMATION */
-
-@keyframes moveLeft{
-
-  from{
-
-    transform:
-    translateX(0);
-  }
-
-  to{
-
-    transform:
-    translateX(-50%);
-  }
-
-}
-
-/* RIGHT ANIMATION */
-
-@keyframes moveRight{
-
-  from{
-
-    transform:
-    translateX(-50%);
-  }
-
-  to{
-
-    transform:
-    translateX(0);
-  }
-
-}
-/* HIDE SCROLLBAR */
-
-.gym-wrapper::-webkit-scrollbar{
-
-  display:none;
-}
-/* DRAG SCROLL */
-
-.gym-wrapper{
-
-  overflow-x:auto;
-
-  overflow-y:hidden;
-
-  scrollbar-width:none;
-
-  cursor:grab;
-
-  scroll-behavior:smooth;
-}
-
-.gym-wrapper::-webkit-scrollbar{
-
-  display:none;
-}
-
-.detail-btn{
-
-  width:100%;
-
-  padding:16px;
-
-  border:none;
-
-  border-radius:18px;
-
-  background:
-  linear-gradient(135deg,#ff7b00,#ffb700);
-
-  color:white;
-
-  font-size:16px;
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:0.3s;
-
-  margin-top:15px;
-
-  box-shadow:
-  0 10px 30px rgba(255,149,0,0.3);
-}
-
-.detail-btn:hover{
-
-  transform:
-  translateY(-5px);
-
-  box-shadow:
-  0 15px 35px rgba(255,149,0,0.4);
-}
-
-/* POPUP */
-
-.popup{
-
-  position:fixed;
-
-  top:0;
-  left:0;
-
-  width:100%;
-  height:100vh;
-
-  background:rgba(0,0,0,0.75);
-
-  backdrop-filter:blur(8px);
-
-  display:flex;
-
-  justify-content:center;
-  align-items:center;
-
-  opacity:0;
-
-  visibility:hidden;
-
-  transition:0.4s;
-
-  z-index:9999;
-
-  pointer-events:none;
-}
-
-.popup.show{
-
-  opacity:1;
-
-  visibility:visible;
-
-  pointer-events:auto;
-}
-
-.popup-content{
-
-  width:90%;
-  max-width:420px;
-
-  padding:35px;
-
-  border-radius:30px;
-
-  background:
-  rgba(255,255,255,0.08);
-
-  backdrop-filter:blur(20px);
-
-  border:
-  1px solid rgba(255,255,255,0.1);
-
-  color:white;
-
-  position:relative;
-
-  animation:fadeUp 0.4s ease;
-}
-
-.popup-content h2{
-
-  color:#ffb700;
-
-  margin-bottom:20px;
-
-  font-size:30px;
-}
-
-.popup-content p{
-
-  margin-bottom:15px;
-
-  color:#d1d5db;
-
-  line-height:1.7;
-}
-
-.close-btn{
-
-  position:absolute;
-
-  top:15px;
-  right:20px;
-
-  font-size:24px;
-
-  cursor:pointer;
-
-  color:#ffb700;
-}
   </style>
 </head>
 
 <body>
-<div class="loader">
-
-  <div class="loader-text">
-    GYM FINDER
+  <div class="loader">
+    <div class="loader-text">GYM FINDER</div>
   </div>
-
-</div>
-  <!-- NAVBAR -->
 
   <nav>
-
-    <div class="logo">
-      GYM FINDER
-    </div>
-
+    <div class="logo">GYM FINDER</div>
     <div class="menu">
-
-      <a href="index.html">
-        Home
-      </a>
-
-      <a href="gym.html">
-        Gym
-      </a>
-
-      <a href="contact.html">
-        Contact
-      </a>
-
+      <a href="index.html">Home</a>
+      <a href="gym.html">Gym</a>
+      <a href="contact.html">Contact</a>
     </div>
-
   </nav>
 
-  <!-- HEADER -->
-
-  <header>
-
-    <h1>
-      EXPLORE GYM
-    </h1>
-
-    <p>
-     
-    </p>
-
-  </header>
-
-  <!-- SEARCH -->
-
- <div class="search-box">
-
-  <input
-  type="text"
-  id="searchInput"
-  placeholder="Cari...">
-
-  <button onclick="searchGym()">
-     Cari
-  </button>
-
- <button
-id="backBtn"
-onclick="resetSearch()"
-
-style="
-display:none;
-position:absolute;
-top:110px;
-left:30px;
-">
-
-Back
-
-</button>
-
-</div>
-
-  <!-- GYM CARD -->
-
-  <div class="gym-wrapper">
-
-  <div class="gym-row left">
-
-    <section class="gym-container">
-      
-    <!-- CARD 1 -->
-
-    <div class="gym-card">
-
-      <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=1200&auto=format&fit=crop">
-
-      <div class="gym-info">
-
-        <h2>Guns Fitness</h2>
-
-        <button
-class="detail-btn"
-
-onclick="openPopup(
-'Guns Fitness',
-'Lorong Seminung No.61, Kemala Raja',
-'08:00 - 23:00',
-'⭐⭐⭐⭐⭐',
-'https://maps.app.goo.gl/34hWo15iHv9KQsKQ8'
-
-)">
-  Detail
-</button>
-
-      </div>
-
-    </div>
-
-    <!-- CARD 2 -->
-
-    <div class="gym-card">
-
-      <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop">
-
-      <div class="gym-info">
-
-        <h2>Ravi Fitness</h2>
-
-        <button
-class="detail-btn"
-
-onclick="openPopup(
-'Ravi Fitness',
-'Jl. Dr. M. Hatta, Sukaraya',
-'08:00 - 22:00',
-'⭐⭐⭐⭐',
-'https://maps.app.goo.gl/DKVszp1cfN6WwGaVA'
-
-)">
-  Detail
-</button>
-      </div>
-
-    </div>
-
-    <!-- CARD 3 -->
-
-    <div class="gym-card">
-
-      <img src="key.jpg">
-
-      <div class="gym-info">
-
-        <h2>Seven Gym Fitness Center</h2>
-
-        <button
-class="detail-btn"
-
-onclick="openPopup(
-'Seven Gym Fitness Center',
-'Jl. Raya Prabumulih - Baturaja, Sukajadi, Kec. Baturaja Timur, Kabupaten Ogan Komering Ulu',
-'06:00 - 22:00',
-'⭐⭐⭐⭐⭐',
-'https://maps.app.goo.gl/EnwLuipJvFWTCU5o6'
-)">
-  Detail
-</button>
-
-      </div>
-
-    </div>
-     <!-- CARD 4 -->
+  <div class="page-content">
     
-    <div class="gym-card">
+    <button id="backBtn" onclick="resetSearch()" style="display:none;">
+      ← Back
+    </button>
 
-      <img src="dig.jpg">
+    <header>
+      <h1>EXPLORE GYM</h1>
+      <p></p>
+    </header>
 
-      <div class="gym-info">
-
-        <h2>NS FITNESS </h2>
-
-       <button
-class="detail-btn"
-
-onclick="openPopup(
-'NS FITNESS ',
-' Jl. Sultan Mahmud Badaruddin II, Kemala Raja, Baturaja Timur, Ogan Komering Ulu',
-'08:00 - 23:00',
-'⭐⭐⭐⭐',
-'https://maps.app.goo.gl/7SHXo7RjrhgyA7P5A'
-
-)">
-  Detail
-</button>
-
+    <div class="search-box">
+      <div class="search-fields">
+        <input type="text" id="searchInput" placeholder="Cari...">
+        <button onclick="searchGym()">Cari</button>
       </div>
-
     </div>
 
-    <!-- CARD 5 -->
+    <div class="gym-wrapper">
+      <div class="gym-row left">
+        <section class="gym-container">
+          
+          <div class="gym-card">
+            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=1200&auto=format&fit=crop">
+            <div class="gym-info">
+              <h2>Guns Fitness</h2>
+              <button class="detail-btn" onclick="openPopup('Guns Fitness', 'Lorong Seminung No.61, Kemala Raja', '08:00 - 23:00', '⭐⭐⭐⭐⭐', 'https://maps.app.goo.gl/34hWo15iHv9KQsKQ8')">Detail</button>
+            </div>
+          </div>
 
-    <div class="gym-card">
+          <div class="gym-card">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop">
+            <div class="gym-info">
+              <h2>Ravi Fitness</h2>
+              <button class="detail-btn" onclick="openPopup('Ravi Fitness', 'Jl. Dr. M. Hatta, Sukaraya', '08:00 - 22:00', '⭐⭐⭐⭐', 'https://maps.app.goo.gl/DKVszp1cfN6WwGaVA')">Detail</button>
+            </div>
+          </div>
 
-      <img src="ejbwbg.jpg">
+          <div class="gym-card">
+            <img src="key.jpg">
+            <div class="gym-info">
+              <h2>Seven Gym Fitness Center</h2>
+              <button class="detail-btn" onclick="openPopup('Seven Gym Fitness Center', 'Jl. Raya Prabumulih - Baturaja, Sukajadi, Kec. Baturaja Timur, Kabupaten Ogan Komering Ulu', '06:00 - 22:00', '⭐⭐⭐⭐⭐', 'https://maps.app.goo.gl/EnwLuipJvFWTCU5o6')">Detail</button>
+            </div>
+          </div>
 
-      <div class="gym-info">
+          <div class="gym-card">
+            <img src="dig.jpg">
+            <div class="gym-info">
+              <h2>NS FITNESS </h2>
+              <button class="detail-btn" onclick="openPopup('NS FITNESS ', ' Jl. Sultan Mahmud Badaruddin II, Kemala Raja, Baturaja Timur, Ogan Komering Ulu', '08:00 - 23:00', '⭐⭐⭐⭐', 'https://maps.app.goo.gl/7SHXo7RjrhgyA7P5A')">Detail</button>
+            </div>
+          </div>
 
-        <h2>Iday Fitness </h2>
+          <div class="gym-card">
+            <img src="ejbwbg.jpg">
+            <div class="gym-info">
+              <h2>Iday Fitness </h2>
+              <button class="detail-btn" onclick="openPopup('Iday Fitness', 'Tj. Enim, Kec. Lawang Kidul, Kabupaten Muara Enim', '08:00 - 22:00', '⭐⭐⭐⭐', 'https://maps.app.goo.gl/Zr98LB5GoWSLWt3K7')">Detail</button>
+            </div>
+          </div>
 
-        <button
-class="detail-btn"
-
-onclick="openPopup(
-'Iday Fitness',
-'Tj. Enim, Kec. Lawang Kidul, Kabupaten Muara Enim',
-'08:00 - 22:00',
-'⭐⭐⭐⭐',
-'https://maps.app.goo.gl/Zr98LB5GoWSLWt3K7'
-
-)">
-  Detail
-</button>
+          <div class="gym-card">
+            <img src="rifky.jpg">
+            <div class="gym-info">
+              <h2>Gym Erkas</h2>
+              <button class="detail-btn" onclick="openPopup('Gym Erkas', 'Jl. May. Ismail Husein, Kemala Raja, Baturaja Timur', '06:00 - 22:00', '⭐⭐⭐', 'https://maps.app.goo.gl/xGX2NK5BGNUzX7Bo6')">Detail</button>
+            </div>
+          </div>
+          
+        </section>
       </div>
-
     </div>
 
-    <!-- CARD 6 -->
+    <div class="gym-wrapper">
+      <div class="gym-row right">
+        <section class="gym-container">
+          
+          <div class="gym-card">
+            <img src="auie.jpg">
+            <div class="gym-info">
+              <h2> Cailendra Warrior GYM </h2>
+              <button class="detail-btn" onclick="openPopup('Cailendra Warrior GYM', 'Jl. Yonarmed XV, Cailendra, kec sungai tuha jaya, Kabupaten Ogan Komering Ulu Timur', '08:00 - 22:00', '⭐⭐⭐⭐', 'https://maps.app.goo.gl/yPRxCxQkpj5CsqRR7')">Detail</button>
+            </div>
+          </div>
 
-    <div class="gym-card">
+          <div class="gym-card">
+            <img src="fajd;ka.jpg">
+            <div class="gym-info">
+              <h2>Marissa Fitness Club</h2>
+              <button class="detail-btn" onclick="openPopup('Marissa Fitness Club', 'Kota Baru Sel., Kec. Martapura, Kabupaten Ogan Komering Ulu Timur, Sumatera Selatan', '07:00 - 21:00', '⭐⭐⭐', 'https://maps.app.goo.gl/nB2gzpkAafQQCmAaA')">Detail</button>
+            </div>
+          </div>
 
-      <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1200&auto=format&fit=crop">
+          <div class="gym-card">
+            <img src="fafe.jpg">
+            <div class="gym-info">
+              <h2>Rajendra Fitness</h2>
+              <button class="detail-btn" onclick="openPopup('Rajendra Fitness', 'Jl. Jend. Bambang Utoyo, Ps. III Muara Enim, Kec. Muara Enim, Kabupaten Muara Enim', '08:00 - 23:00', '⭐⭐⭐⭐⭐', 'https://maps.app.goo.gl/DovhDaeMAjzZE7Dz8')">Detail</button>
+            </div>
+          </div>
 
-      <div class="gym-info">
+          <div class="gym-card">
+            <img src="ahba.jpg">
+            <div class="gym-info">
+              <h2> DRGym </h2>
+              <button class="detail-btn" onclick="openPopup('DRGym', 'Jl. Kirab Remaja, Air Lintang, Kec. Muara Enim, Kabupaten Muara Enim', '09:00 - 22:00', '⭐⭐⭐⭐⭐', 'https://maps.app.goo.gl/j9pGANoroYvK81c69')">Detail</button>
+            </div>
+          </div>
 
-        <h2>Gym Erkas</h2>
+          <div class="gym-card">
+            <img src="asf.jpg">
+            <div class="gym-info">
+              <h2>GYMNATION REBORN</h2>
+              <button class="detail-btn" onclick="openPopup('GYMNATION REBORN', 'Jl. Baturaja, Tj. Enim Sel., Kec. Lawang Kidul, Kabupaten Muara Enim', '06:00 - 21:00', '⭐⭐⭐⭐', 'https://maps.app.goo.gl/7P8xwbfaQEQq8pz58')">Detail</button>
+            </div>
+          </div>
 
-        <button
-class="detail-btn"
+          <div class="gym-card">
+            <img src="vja.jpg">
+            <div class="gym-info">
+              <h2>Key Gym</h2>
+              <button class="detail-btn" onclick="openPopup('Key Gym', 'Jl. Barak Jl. Raya Air Paku, Tj. Enim Sel., Kec. Lawang Kidul, Kabupaten Muara Enim', '08:00 - 23:00', '⭐⭐⭐⭐', 'https://maps.app.goo.gl/589SykoeLDMJvVyr7')">Detail</button>
+            </div>
+          </div>
 
-onclick="openPopup(
-'Gym Erkas',
-'Jl. May. Ismail Husein, Kemala Raja, Baturaja Timur',
-'06:00 - 22:00',
-'⭐⭐⭐',
-'https://maps.app.goo.gl/xGX2NK5BGNUzX7Bo6'
-)">
-  Detail
-</button>
-
+        </section>
       </div>
-
-    </div>
-    
-    </section>
-
-  </div>
-
-  <div class="gym-row right">
-
-    <section class="gym-container">
-    <!-- CARD 1 -->
-
- <div class="gym-card">
-
-      <img src="auie.jpg">
-
-      <div class="gym-info">
-
-        <h2> Cailendra Warrior GYM </h2>
-
-       <button
-class="detail-btn"
-
-onclick="openPopup(
-'Cailendra Warrior GYM',
-'Jl. Yonarmed XV, Cailendra, kec sungai tuha jaya, Kabupaten Ogan Komering Ulu Timur',
-'08:00 - 22:00',
-'⭐⭐⭐⭐',
-'https://maps.app.goo.gl/yPRxCxQkpj5CsqRR7'
-
-)">
-  Detail
-</button>
-
-      </div>
-
     </div>
 
-     <!-- CARD 2 -->
-
- <div class="gym-card">
-
-      <img src="fajd;ka.jpg">
-
-      <div class="gym-info">
-
-        <h2>Marissa Fitness Club</h2>
-
-       <button
-class="detail-btn"
-
-onclick="openPopup(
-'Marissa Fitness Club',
-'Kota Baru Sel., Kec. Martapura, Kabupaten Ogan Komering Ulu Timur, Sumatera Selatan',
-'07:00 - 21:00',
-'⭐⭐⭐',
-'https://maps.app.goo.gl/nB2gzpkAafQQCmAaA'
-
-)">
-  Detail
-</button>
-
-      </div>
-
-    </div>
- <!-- CARD 3 -->
-    
-    <div class="gym-card">
-
-      <img src="fafe.jpg">
-
-      <div class="gym-info">
-
-        <h2>Rajendra Fitness</h2>
-
-        <button
-class="detail-btn"
-
-onclick="openPopup(
-'Rajendra Fitness',
-'Jl. Jend. Bambang Utoyo, Ps. III Muara Enim, Kec. Muara Enim, Kabupaten Muara Enim',
-'08:00 - 23:00',
-'⭐⭐⭐⭐⭐',
-'https://maps.app.goo.gl/DovhDaeMAjzZE7Dz8'
-
-)">
-  Detail
-</button>
-
-      </div>
-
-     </div>
-
-     <!-- CARD 4 -->
-    <div class="gym-card">
-
-      <img src="ahba.jpg">
-
-      <div class="gym-info">
-
-        <h2> DRGym </h2>
-
-       <button
-class="detail-btn"
-
-onclick="openPopup(
-'DRGym',
-'Jl. Kirab Remaja, Air Lintang, Kec. Muara Enim, Kabupaten Muara Enim',
-'09:00 - 22:00',
-'⭐⭐⭐⭐⭐',
-'https://maps.app.goo.gl/j9pGANoroYvK81c69'
-
-)">
-  Detail
-</button>
-
-      </div>
-
-    </div>
-
-     <!-- CARD 5 -->
-
- <div class="gym-card">
-
-      <img src="asf.jpg">
-
-      <div class="gym-info">
-
-        <h2>GYMNATION REBORN</h2>
-
-       <button
-class="detail-btn"
-
-onclick="openPopup(
-'GYMNATION REBORN',
-'Jl. Baturaja, Tj. Enim Sel., Kec. Lawang Kidul, Kabupaten Muara Enim',
-'06:00 - 21:00',
-'⭐⭐⭐⭐',
-'https://maps.app.goo.gl/7P8xwbfaQEQq8pz58'
-
-)">
-  Detail
-</button>
-
-      </div>
-
-    </div>
-
-     <!-- CARD 6 -->
-
-    <div class="gym-card">
-
-      <img src="vja.jpg">
-
-      <div class="gym-info">
-
-        <h2>Key Gym</h2>
-
-       <button
-class="detail-btn"
-
-onclick="openPopup(
-'Key Gym',
-'Jl. Barak Jl. Raya Air Paku, Tj. Enim Sel., Kec. Lawang Kidul, Kabupaten Muara Enim',
-'08:00 - 23:00',
-'⭐⭐⭐⭐',
-'https://maps.app.goo.gl/589SykoeLDMJvVyr7'
-
-)">
-  Detail
-</button>
-
-    </div>
-
-    </div>
-</section>
-
-</div>
-
-</div>
-  <!-- FOOTER -->
-
-  <footer>
-
+  </div> <footer>
     © 2026 Gym Finder
-
   </footer>
 
-  <!-- JAVASCRIPT -->
-
-  <script>
-
-    function searchGym(){
-
-      let input =
-      document
-      .getElementById("searchInput")
-      .value
-      .toLowerCase();
-
-      let cards =
-      document
-      .querySelectorAll(".gym-card");
-
-      cards.forEach(card => {
-
-        let title =
-        card
-        .querySelector("h2")
-        .innerText
-        .toLowerCase();
-let rows =
-document.querySelectorAll(".gym-row");
-
-if(input !== ""){
-
-  document
-   .getElementById("backBtn")
-   .style.display = "block";
-
-  rows.forEach(row => {
-
-    row.style.animation = "none";
-
-  });
-
-}else{
-  document
-   .getElementById("backBtn")
-   .style.display = "none";
-  rows.forEach(row => {
-
-    row.style.animation = "";
-
-  });
-
-}
-        if(title.includes(input)){
-
-          card.style.display = "block";
-
-        }else{
-
-          card.style.display = "none";
-
-        }
-
-      });
-
-    }
-
-function openPopup(name,address,time,rating,map){
-
-  document
-  .getElementById("popupTitle")
-  .innerText = name;
-
-  document
-  .getElementById("popupAddress")
-  .innerText = "📍 " + address;
-
-  document
-  .getElementById("popupTime")
-  .innerText = "🕒 " + time;
-
-  document
-  .getElementById("popupRating")
-  .innerText = rating;
-
-  document
-  .getElementById("popupMap")
-  .href = map;
-
-  document
-  .getElementById("popup")
-  .classList.add("show");
-
-  let rows =
-  document.querySelectorAll(".gym-row");
-
-  rows.forEach(row => {
-
-    row.style.animationPlayState = "paused";
-
-  });
-
-}
-
-function closePopup(){
-
-  document
-  .getElementById("popup")
-  .classList.remove("show");
-
-  let rows =
-  document.querySelectorAll(".gym-row");
-
-  rows.forEach(row => {
-
-    row.style.animationPlayState = "running";
-
-  });
-
-}
-function resetSearch(){
-
-  document
-  .getElementById("searchInput")
-  .value = "";
-
-  let cards =
-  document
-  .querySelectorAll(".gym-card");
-
-  cards.forEach(card => {
-
-    card.style.display = "block";
-
-  });
-
-  document
-  .getElementById("backBtn")
-  .style.display = "none";
-
-  let rows =
-  document
-  .querySelectorAll(".gym-row");
-
-  rows.forEach(row => {
-
-    row.style.animation = "";
-
-    row.style.animationPlayState = "running";
-
-  });
-
-}
-  </script>
-
-<div class="popup" id="popup">
-
-  <div class="popup-content">
-
-    <span class="close-btn" onclick="closePopup()">
-      ✕
-    </span>
-
-    <h2 id="popupTitle"></h2>
-
-    <p id="popupAddress"></p>
-
-    <p id="popupTime"></p>
-
-    <p id="popupRating" class="rating"></p>
-
-    <a
-    class="map-btn"
-    id="popupMap"
-    href=""
-    target="_blank">
-
-      <button>
-        📍 Buka Maps
-      </button>
-
-    </a>
-
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup()">✕</span>
+      <h2 id="popupTitle"></h2>
+      <p id="popupAddress"></p>
+      <p id="popupTime"></p>
+      <p id="popupRating" class="rating"></p>
+      <a class="map-btn" id="popupMap" href="" target="_blank">
+        <button>📍 Buka Maps</button>
+      </a>
+    </div>
   </div>
 
-</div>
+  <script>
+    // FITUR DRAG SCROLL VIA MOUSE UNTUK DEKSTOP/PC
+    const wrappers = document.querySelectorAll('.gym-wrapper');
+    wrappers.forEach(wrapper => {
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      wrapper.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - wrapper.offsetLeft;
+        scrollLeft = wrapper.scrollLeft;
+        wrapper.style.scrollBehavior = 'auto';
+      });
+      
+      wrapper.addEventListener('mouseleave', () => {
+        isDown = false;
+      });
+      
+      wrapper.addEventListener('mouseup', () => {
+        isDown = false;
+        wrapper.style.scrollBehavior = 'smooth';
+      });
+      
+      wrapper.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - wrapper.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        wrapper.scrollLeft = scrollLeft - walk;
+      });
+    });
+
+    function searchGym(){
+      let input = document.getElementById("searchInput").value.toLowerCase();
+      let cards = document.querySelectorAll(".gym-card");
+      let rows = document.querySelectorAll(".gym-row");
+
+      if(input !== ""){
+        document.getElementById("backBtn").style.display = "block";
+        rows.forEach(row => {
+          row.style.animation = "none";
+        });
+      } else {
+        document.getElementById("backBtn").style.display = "none";
+        rows.forEach(row => {
+          row.style.animation = "";
+        });
+      }
+
+      cards.forEach(card => {
+        let title = card.querySelector("h2").innerText.toLowerCase();
+        if(title.includes(input)){
+          card.style.display = "block";
+        }else{
+          card.style.display = "none";
+        }
+      });
+    }
+
+    function openPopup(name, address, time, rating, map){
+      document.getElementById("popupTitle").innerText = name;
+      document.getElementById("popupAddress").innerText = "📍 " + address;
+      document.getElementById("popupTime").innerText = "🕒 " + time;
+      document.getElementById("popupRating").innerText = rating;
+      document.getElementById("popupMap").href = map;
+      document.getElementById("popup").classList.add("show");
+
+      let rows = document.querySelectorAll(".gym-row");
+      rows.forEach(row => {
+        row.style.animationPlayState = "paused";
+      });
+    }
+
+    function closePopup(){
+      document.getElementById("popup").classList.remove("show");
+      let rows = document.querySelectorAll(".gym-row");
+      rows.forEach(row => {
+        row.style.animationPlayState = "running";
+      });
+    }
+
+    function resetSearch(){
+      document.getElementById("searchInput").value = "";
+      let cards = document.querySelectorAll(".gym-card");
+      
+      cards.forEach(card => {
+        card.style.display = "block";
+      });
+
+      document.getElementById("backBtn").style.display = "none";
+      
+      let rows = document.querySelectorAll(".gym-row");
+      rows.forEach(row => {
+        row.style.animation = "";
+        row.style.animationPlayState = "running";
+      });
+    }
+  </script>
 </body>
 </html>
