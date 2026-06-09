@@ -3,871 +3,438 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Gym Finder</title>
 
   <style>
-
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&display=swap');
+    
     *{
       margin:0;
       padding:0;
       box-sizing:border-box;
-     font-family:'Manrope',sans-serif;
+      font-family:'Manrope',sans-serif;
     }
 
     body{
-
       background:
       linear-gradient(rgba(0,0,0,0.82),rgba(0,0,0,0.9)),
-
       url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1600&auto=format&fit=crop');
-
       background-size:cover;
       background-position:center;
       background-attachment:fixed;
-
       color:white;
-
       min-height:100vh;
     }
 
     /* NAVBAR */
-
     nav{
-
       display:flex;
       justify-content:space-between;
       align-items:center;
-
       padding:20px 50px;
-
-      background:
-      rgba(255,255,255,0.05);
-
+      background: rgba(255,255,255,0.05);
       backdrop-filter:blur(10px);
-
-      border-bottom:
-      1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position:sticky;
+      top:0;
+      z-index:999;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.35);
     }
 
     .logo{
-
       font-size:30px;
       font-weight:bold;
-
       color:#ffb700;
     }
 
     .menu a{
-
       color:white;
       text-decoration:none;
-
       margin-left:25px;
-
       font-weight:bold;
-
       transition:0.3s;
+      position:relative;
     }
 
     .menu a:hover{
-
       color:#ffb700;
     }
 
-    /* HERO */
+    .menu a::after{
+      content:'';
+      position:absolute;
+      width:0%;
+      height:2px;
+      left:0;
+      bottom:-6px;
+      background:#ffb700;
+      transition:0.3s;
+    }
 
+    .menu a:hover::after{
+      width:100%;
+    }
+
+    /* HERO SECTION */
     .hero{
-
       min-height:90vh;
-
       display:flex;
       justify-content:center;
       align-items:center;
-
       text-align:center;
-
       padding:40px 20px;
     }
 
     .hero-content{
-
       max-width:850px;
     }
 
     .mini-text{
-
       color:#ffb700;
-
       letter-spacing:3px;
-
       margin-bottom:20px;
-
       font-weight:bold;
     }
 
     .hero h1{
-
       font-size:90px;
-
       line-height:1;
-
       margin-bottom:25px;
-
-      background:
-      linear-gradient(135deg,#ffffff,#ffb700);
-
+      background: linear-gradient(135deg,#ffffff,#ffb700);
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
     }
 
     .hero p{
-
-  color:#d1d5db;
-
-  font-size:22px;
-
-  line-height:2.1;
-
-  letter-spacing:1px;
-
-  font-weight:300;
-
-  max-width:760px;
-
-  margin:auto;
-
-  margin-bottom:40px;
-
-  opacity:0.92;
-}
-    
+      color:#d1d5db;
+      font-size:22px;
+      line-height:2.1;
+      letter-spacing:1px;
+      font-weight:300;
+      max-width:760px;
+      margin:auto;
+      margin-bottom:40px;
+      opacity:0.92;
+    }
 
     .hero-btn{
-
       display:inline-block;
-
       padding:18px 35px;
-
       border-radius:18px;
-
       text-decoration:none;
-
-      background:
-      linear-gradient(135deg,#ff7b00,#ffb700);
-
+      background: linear-gradient(135deg,#ff7b00,#ffb700);
       color:white;
-
       font-weight:bold;
-
       transition:0.3s;
-
-      box-shadow:
-      0 10px 30px rgba(255,149,0,0.3);
+      box-shadow: 0 10px 30px rgba(255,149,0,0.3);
     }
 
     .hero-btn:hover{
-
-      transform:
-      translateY(-5px)
-      scale(1.03);
+      transform: translateY(-5px) scale(1.03);
     }
 
-    /* FEATURE */
+    /* ANIMASI TEKS HERO STAGGERED (MUNCUL BERURUTAN) */
+    .hero .mini-text,
+    .hero h1,
+    .hero p,
+    .hero .hero-btn {
+      opacity: 0;
+      transform: translateY(35px);
+      animation: cinematicUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
 
+    /* Delay disinkronisasikan setelah efek kedipan lampu loader selesai */
+    .hero .mini-text { animation-delay: 3.0s; }
+    .hero h1        { animation-delay: 3.3s; }
+    .hero p         { animation-delay: 3.6s; }
+    .hero .hero-btn { animation-delay: 3.9s; }
+
+    @keyframes cinematicUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* FEATURE SECTIONS */
     .feature-section{
-
       display:grid;
-
-      grid-template-columns:
-      repeat(auto-fit,minmax(280px,1fr));
-
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
       gap:30px;
-
       padding:80px 60px;
     }
 
     .feature-card{
-
-      background:
-      rgba(255,255,255,0.05);
-
+      background: rgba(255,255,255,0.05);
       backdrop-filter:blur(12px);
-
-      border:
-      1px solid rgba(255,255,255,0.08);
-
+      border: 1px solid rgba(255,255,255,0.08);
       padding:40px;
-
       border-radius:30px;
-
       text-align:center;
-
       transition:0.4s;
     }
 
     .feature-card:hover{
-
-      transform:
-      translateY(-10px);
-
-      box-shadow:
-      0 15px 40px rgba(255,149,0,0.15);
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(255,149,0,0.15);
     }
 
     .feature-card h1{
-
       font-size:50px;
-
       margin-bottom:20px;
     }
 
     .feature-card h2{
-
       color:#ffb700;
-
       margin-bottom:15px;
     }
 
     .feature-card p{
-
       color:#d1d5db;
-
       line-height:1.8;
     }
 
     /* ABOUT */
-
     .about{
-
       text-align:center;
-
       padding:100px 20px;
     }
 
     .about-content{
-
       max-width:850px;
-
       margin:auto;
     }
 
     .about h1{
-
       font-size:70px;
-
       margin-bottom:30px;
-
       color:#ffb700;
     }
 
     .about p{
+      color:#d1d5db;
+      font-size:22px;
+      line-height:2.2;
+      letter-spacing:1px;
+      font-weight:300;
+      max-width:760px;
+      margin:auto;
+      opacity:0.92;
+    }
 
-  color:#d1d5db;
-
-  font-size:22px;
-
-  line-height:2.2;
-
-  letter-spacing:1px;
-
-  font-weight:300;
-
-  max-width:760px;
-
-  margin:auto;
-
-  opacity:0.92;
-}
     /* CTA */
-
     .cta{
-
       text-align:center;
-
       padding:120px 20px;
     }
 
     .cta h1{
-
       font-size:70px;
-
       margin-bottom:20px;
-
       color:#ffb700;
     }
 
     .cta p{
-
-  color:#d1d5db;
-
-  font-size:22px;
-
-  letter-spacing:1px;
-
-  font-weight:300;
-
-  opacity:0.92;
-
-  margin-bottom:40px;
-}
+      color:#d1d5db;
+      font-size:22px;
+      letter-spacing:1px;
+      font-weight:300;
+      opacity:0.92;
+      margin-bottom:40px;
+    }
 
     .cta-btn{
-
       display:inline-block;
-
       padding:20px 40px;
-
       border-radius:20px;
-
       text-decoration:none;
-
-      background:
-      linear-gradient(135deg,#ff7b00,#ffb700);
-
+      background: linear-gradient(135deg,#ff7b00,#ffb700);
       color:white;
-
       font-weight:bold;
-
       transition:0.3s;
-
-      box-shadow:
-      0 10px 35px rgba(255,149,0,0.3);
+      box-shadow: 0 10px 35px rgba(255,149,0,0.3);
     }
 
     .cta-btn:hover{
-
-      transform:
-      translateY(-5px)
-      scale(1.03);
+      transform: translateY(-5px) scale(1.03);
     }
 
     /* FOOTER */
-
     footer{
-
       text-align:center;
-
       padding:40px 20px;
-
       color:#cbd5e1;
     }
 
-    /* MOBILE */
-
-    @media(max-width:768px){
-
-      nav{
-
-        flex-direction:column;
-
-        gap:15px;
-      }
-
-      .menu{
-
-        display:flex;
-        gap:15px;
-      }
-
-      .menu a{
-
-        margin-left:0;
-      }
-
-      .hero h1{
-
-        font-size:55px;
-      }
-
-      .hero p{
-
-        font-size:16px;
-      }
-
-      .feature-section{
-
-        padding:40px 20px;
-      }
-
-      .about h1{
-
-        font-size:45px;
-      }
-
-      .cta h1{
-
-        font-size:45px;
-      }
-
+    /* CINEMATIC LOADER SCREEN */
+    .loader{
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100vh;
+      background:#050505;
+      display:flex; justify-content:center; align-items:center;
+      z-index:99999;
+      animation: loaderOut 0.8s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+      animation-delay: 2.5s; /* Memberi ruang untuk menikmati kedipan lampu neon */
     }
 
-/* ========================= */
-/* MODERN ANIMATION */
-/* ========================= */
-
-html{
-  scroll-behavior:smooth;
-}
-
-/* NAVBAR FLOAT */
-
-nav{
-
-  position:sticky;
-
-  top:0;
-
-  z-index:999;
-
-  box-shadow:
-  0 5px 30px rgba(0,0,0,0.35);
-}
-
-/* HEADER GLOW */
-
-header h1{
-
-  animation:
-  glow 3s infinite alternate;
-}
-
-/* SEARCH EFFECT */
-
-.search-box input{
-
-  transition:0.3s;
-}
-
-.search-box input:focus{
-
-  border:
-  1px solid #ffb700;
-
-  box-shadow:
-  0 0 25px rgba(255,183,0,0.25);
-
-  transform:scale(1.02);
-}
-
-/* CARD MODERN */
-
-.gym-card{
-
-  animation:
-  fadeUp 1s ease;
-}
-
-/* CARD HOVER */
-
-.gym-card:hover{
-
-  transform:
-  translateY(-15px)
-  scale(1.02);
-
-  box-shadow:
-  0 25px 60px rgba(255,149,0,0.25);
-}
-
-/* IMAGE EFFECT */
-
-.gym-card img{
-
-  height:320px;
-
-  object-fit:cover;
-
-  object-position:center;
-
-  transition:0.5s;
-}
-
-.gym-card:hover img{
-
-  transform:scale(1.08);
-}
-
-/* BUTTON EFFECT */
-
-.map-btn button:active{
-
-  transform:scale(0.96);
-}
-
-/* MENU UNDERLINE */
-
-.menu a{
-
-  position:relative;
-}
-
-.menu a::after{
-
-  content:'';
-
-  position:absolute;
-
-  width:0%;
-
-  height:2px;
-
-  left:0;
-  bottom:-6px;
-
-  background:#ffb700;
-
-  transition:0.3s;
-}
-
-.menu a:hover::after{
-
-  width:100%;
-}
-
-/* ANIMATION */
-
-@keyframes glow{
-
-  from{
-
-    text-shadow:
-    0 0 10px rgba(255,183,0,0.2),
-    0 0 20px rgba(255,183,0,0.2);
-  }
-
-  to{
-
-    text-shadow:
-    0 0 20px rgba(255,183,0,0.5),
-    0 0 40px rgba(255,183,0,0.4);
-  }
-
-}
-
-@keyframes fadeUp{
-
-  from{
-
-    opacity:0;
-
-    transform:
-    translateY(60px);
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:
-    translateY(0);
-  }
-}
-/* ========================= */
-/* CINEMATIC LOADER */
-/* ========================= */
-
-.loader{
-
-  position:fixed;
-
-  top:0;
-  left:0;
-
-  width:100%;
-  height:100vh;
-
-  background:#050505;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  z-index:99999;
-
-  animation:
-  loaderOut 2.1s forwards;
-
-  animation-delay:2.1s;
-}
-
-.loader-text{
-
-  color:#ffb700;
-
-  font-size:85px;
-
-  font-weight:700;
-
-  letter-spacing:8px;
-
-  animation:
-  slideUp 1.2s ease forwards,
-  pulse 1.5s infinite;
-
-  opacity:0;
-}
-
-/* LOADER OUT */
-
-@keyframes loaderOut{
-
-  to{
-
-    opacity:0;
-
-    visibility:hidden;
-  }
-
-}
-
-/* TEXT SLIDE UP */
-
-@keyframes slideUp{
-
-  from{
-
-    opacity:0;
-
-    transform:
-    translateY(120px);
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:
-    translateY(0);
-  }
-
-}
-/* ========================= */
-/* SCROLL REVEAL */
-/* ========================= */
-
-.reveal{
-
-  opacity:0;
-
-  transform:
-  translateY(100px);
-
-  transition:
-  all 2.5s cubic-bezier(0.22,1,0.36,1);
-}
-
-.reveal.active{
-
-  opacity:1;
-
-  transform:
-  translateY(0);
-}
+    /* ============================================== */
+    /* LOADER TEXT: CYBERPUNK NEON PULSE  */
+    /* ============================================== */
+    .loader-text{
+      color:#ffb700;
+      font-size:70px;
+      font-weight:800;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      /* Menggabungkan efek flicker di awal, lalu stabil dan pulsing berdenyut */
+      animation: neonFlicker 1.5s ease-in-out forwards, neonPulse 1.5s infinite alternate 1.5s;
+    }
+
+    @keyframes loaderOut{
+      to{ opacity:0; visibility:hidden; }
+    }
+
+    /* Efek Lampu Neon Kontak Singkat / Rusak Estetik */
+    @keyframes neonFlicker {
+      0%, 4%, 10%, 14%, 24%, 28%, 92% {
+        opacity: 0;
+        text-shadow: none;
+      }
+      5%, 9%, 11%, 13%, 15%, 23%, 25%, 27%, 29%, 93%, 100% {
+        opacity: 1;
+        text-shadow: 
+          0 0 10px rgba(255,183,0,0.8),
+          0 0 20px rgba(255,183,0,0.5),
+          0 0 40px rgba(255,115,0,0.3);
+      }
+    }
+
+    /* Efek Pendaran Cahaya Berdenyut Stabil */
+    @keyframes neonPulse {
+      from {
+        text-shadow: 
+          0 0 10px #ffb700, 
+          0 0 20px #ffb700, 
+          0 0 40px #ff7b00,
+          0 0 80px #ff7b00;
+        transform: scale(1);
+      }
+      to {
+        text-shadow: 
+          0 0 15px #ffb700, 
+          0 0 35px #ffb700, 
+          0 0 60px #ff7b00,
+          0 0 100px #ff7b00,
+          0 0 120px #ff7b00;
+        transform: scale(1.02);
+      }
+    }
+
+    /* ============================================== */
+    /* SCROLL REVEAL     */
+    /* ============================================== */
+    .reveal{
+      opacity:0;
+      transform: translateY(70px);
+      transition: opacity 1.8s ease, transform 1.8s cubic-bezier(0.215, 0.610, 0.355, 1);
+      will-change: transform, opacity;
+    }
+
+    .reveal.active{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE MOBILE */
+    @media(max-width:768px){
+      nav{ flex-direction:column; gap:15px; }
+      .menu{ display:flex; gap:15px; }
+      .menu a{ margin-left:0; }
+      .hero h1{ font-size:55px; }
+      .hero p{ font-size:16px; }
+      .feature-section{ padding:40px 20px; }
+      .about h1, .cta h1{ font-size:45px; }
+      .loader-text{ font-size:42px; letter-spacing: 3px; }
+    }
   </style>
 </head>
 
 <body>
-<div class="loader">
-
-  <div class="loader-text">
-    GYM FINDER
+  
+  <div class="loader">
+    <div class="loader-text">GYM FINDER</div>
   </div>
 
-</div>
-  <!-- NAVBAR -->
-
   <nav>
-
-    <div class="logo">
-       GYM FINDER
-    </div>
-
+    <div class="logo">GYM FINDER</div>
     <div class="menu">
-
-      <a href="index.html">
-        Home
-      </a>
-
-      <a href="gym.html">
-        Gym
-      </a>
-
-      <a href="contact.html">
-        Contact
-      </a>
-
+      <a href="index.html">Home</a>
+      <a href="gym.html">Gym</a>
+      <a href="contact.html">Contact</a>
     </div>
-
   </nav>
 
-  <!-- HERO -->
-
-  <section class="hero reveal">
-
+  <section class="hero">
     <div class="hero-content">
-
-      <p class="mini-text">
-         BEST FITNESS PLATFORM
-      </p>
-
-      <h1>
-        FIND YOUR <br>
-        DREAM GYM
-      </h1>
-
-      <p>
-
-        Find the best gyms in Baturaja, Martapura, and Muara Enim with a modern and user friendly experience.
-
-      </p>
-
-      <a
-      href="gym.html"
-      class="hero-btn">
-
-         Explore Gym
-
-      </a>
-
+      <p class="mini-text">BEST FITNESS PLATFORM</p>
+      <h1>FIND YOUR <br> DREAM GYM</h1>
+      <p>Find the best gyms in Baturaja, Martapura, and Muara Enim with a modern and user friendly experience.</p>
+      <a href="gym.html" class="hero-btn">Explore Gym</a>
     </div>
-
   </section>
-
-  <!-- FEATURE -->
 
   <section class="feature-section reveal">
-
     <div class="feature-card">
-
       <h1>🏋️</h1>
-
       <h2>Gym Terbaik</h2>
-
-      <p>
-        Temukan tempat workout terbaik
-        dengan fasilitas modern.
-      </p>
-
+      <p>Temukan tempat workout terbaik dengan fasilitas modern.</p>
     </div>
-
     <div class="feature-card">
-
       <h1>📍</h1>
-
       <h2>Lokasi Akurat</h2>
-
-      <p>
-        Langsung buka Google Maps
-        hanya dengan sekali klik.
-      </p>
-
+      <p>Langsung buka Google Maps hanya dengan sekali klik.</p>
     </div>
-
     <div class="feature-card">
-
       <h1>⭐</h1>
-
       <h2>Rating Tinggi</h2>
-
-      <p>
-        Cari gym favorit berdasarkan
-        rating terbaik.
-      </p>
-
+      <p>Cari gym favorit berdasarkan rating terbaik.</p>
     </div>
-
   </section>
-
-  <!-- ABOUT -->
 
   <section class="about reveal">
-
     <div class="about-content">
-
-      <h1>
-        WHY GYM FINDER?
-      </h1>
-
-      <p>
-
-        Gym Finder membantu masyarakat
-        Baturaja, Martapura, dan Muara Enim menemukan tempat gym
-        terbaik dengan mudah dan cepat.
-
-        Dengan tampilan modern dan
-        fitur pencarian pintar,
-        pengalaman mencari gym
-        jadi lebih nyaman
-
-      </p>
-
+      <h1>WHY GYM FINDER?</h1>
+      <p>Gym Finder membantu masyarakat Baturaja, Martapura, dan Muara Enim menemukan tempat gym terbaik dengan mudah dan cepat. Dengan tampilan modern dan fitur pencarian pintar, pengalaman mencari gym jadi lebih nyaman.</p>
     </div>
-
   </section>
-
-  <!-- CTA -->
 
   <section class="cta reveal">
-
-    <h1>
-      READY TO TRAIN?
-    </h1>
-
-    <p>
-      Mulai perjalanan fitness kamu sekarang.
-    </p>
-
-    <a
-    href="gym.html"
-    class="cta-btn">
-
-       Explore Gym
-
-    </a>
-
+    <h1>READY TO TRAIN?</h1>
+    <p>Mulai perjalanan fitness kamu sekarang.</p>
+    <a href="gym.html" class="cta-btn">Explore Gym</a>
   </section>
 
-  <!-- FOOTER -->
-
   <footer>
-
     © 2026 Gym Finder
-
   </footer>
-<script>
 
-window.addEventListener("scroll", reveal);
+  <script>
+    window.addEventListener("scroll", reveal);
+    window.addEventListener("DOMContentLoaded", reveal);
 
-function reveal(){
+    function reveal(){
+      let reveals = document.querySelectorAll(".reveal");
+      for(let i = 0; i < reveals.length; i++){
+        let windowHeight = window.innerHeight;
+        let revealTop = reveals[i].getBoundingClientRect().top;
+        let revealPoint = 80;
 
-  let reveals =
-  document.querySelectorAll(".reveal");
-
-  for(let i = 0; i < reveals.length; i++){
-
-    let windowHeight =
-    window.innerHeight;
-
-    let revealTop =
-    reveals[i]
-    .getBoundingClientRect().top;
-
-    let revealPoint = 100;
-
-    if(revealTop < windowHeight - revealPoint){
-
-      reveals[i]
-      .classList
-      .add("active");
-
+        if(revealTop < windowHeight - revealPoint){
+          reveals[i].classList.add("active");
+        }
+      }
     }
-
-  }
-
-}
-
-</script>
+  </script>
 </body>
 </html>
